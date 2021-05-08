@@ -8,5 +8,7 @@ Mohon maaf karena sepertinya kelompok kami memilih jalur revisi untuk semua soal
 4. Karena salah satu dari anggota kami afdhal juga sudah tidak pernah turut berkontribusi
 
 Bukti laptop rusak :
+
  [![104846.jpg](https://i.postimg.cc/WzXkdbfB/104846.jpg)](https://postimg.cc/9wwMSV2b)
- [![104847.jpg](https://i.postimg.cc/Y97G8Wcc/104847.jpg)](https://postimg.cc/jW8SSCdv)
+
+[![104847.jpg](https://i.postimg.cc/Y97G8Wcc/104847.jpg)](https://postimg.cc/jW8SSCdv)
