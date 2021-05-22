@@ -3,54 +3,45 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int pid;
-int fd1[2];
-int fd2[2];
-
-void ps_comm();
-void sort_comm();
-void head_comm();
-
-char *ps_arg[] = {"ps", "aux", NULL};
-char *sort_arg[] = {"sort", "-nrk", "3,3", NULL};
-char *head_arg[] = {"head", "-5", NULL};
-
-int main(){
-
-    // create fd1
-    if (pipe(fd1) == -1){
-        perror("failed create pipe1");
-        exit(1);
-    }
-
-    if ((pid = fork()) == -1){
-        exit(1);
-    }
-    else if (pid == 0){
-        ps_comm();
-    }
-
-    if (pipe(fd2) == -1){
-        perror("failed create pipe2");
-        exit(1);
-    }
-
-    if ((pid = fork()) == -1){
-        exit(1);
-    }
-    else if (pid == 0){
-        sort_comm();
-    }
-
+void closeAll(int fd1[2], int fd2[2]) {
     close(fd1[0]);
     close(fd1[1]);
+    close(fd2[0]);
+    close(fd2[1]);
+}
 
-    if ((pid = fork()) == -1){
-        exit(1);
+int main() {
+    int fd1[2], fd2[2];
+    char *ps_arg[] = {"ps", "aux", NULL};
+    char *sort_arg[] = {"sort", "-nrk", "3,3", NULL};
+    char *head_arg[] = {"head", "-5", NULL};
+
+    pipe(fd1);
+    pipe(fd2);
+
+    if (fork() == 0) {
+        printf("masuk ps\n\n");
+        dup2(fd1[1], STDOUT_FILENO);
+        closeAll(fd1,fd2);
+        printf("sudah exec ps\n\n");
+        execv("/bin/ps", ps_arg);
+    } 
+    else if (fork() == 0) {
+        printf("masuk sort\n\n");
+        dup2(fd1[0], STDIN_FILENO);
+        dup2(fd2[1], STDOUT_FILENO);
+        closeAll(fd1,fd2);
+        printf("sudah exec sort\n\n");
+        execv("/bin/sort", sort_arg);        
+    } 
+    else if (fork() == 0) {
+        printf("masuk head\n\n");
+        dup2(fd2[0], STDIN_FILENO);
+        closeAll(fd1,fd2);
+        printf("sudah exec head\n\n");
+        execv("/bin/head", head_arg);
     }
-    else if (pid == 0){
-        head_comm();
-    }
+    closeAll(fd1,fd2);
 
     int i, status;
     for (i = 0; i < 3; i++)
@@ -58,42 +49,6 @@ int main(){
     return 0;
 }
 
-void ps_comm(){
-
-    // output ke fd1
-    dup2(fd1[1], 1);
-
-    close(fd1[0]);
-    close(fd1[1]);
-
-    // exec ps
-    execv("/bin/ps", ps_arg);
-    _exit(1);
-}
-
-void sort_comm(){
-    // input dari fd1
-    dup2(fd1[0], 0);
-    // output ke fd2
-    dup2(fd2[1], 1);
-
-    close(fd1[0]);
-    close(fd1[1]);
-    close(fd2[0]);
-    close(fd2[1]);
-
-    execv("/bin/sort", sort_arg);   
-    _exit(1);
-}
-
-void head_comm(){
-    // input dari fd2
-    dup2(fd2[0], 0);
-
-    close(fd2[0]);
-    close(fd2[1]);
-
-    execv("/bin/head", head_arg);
-    _exit(1);
-}
-
+// STDOUT_FILENO = 1;
+// STDIN_FILENO = 0;
+// ps aux | sort -nrk 3,3 | head -5
