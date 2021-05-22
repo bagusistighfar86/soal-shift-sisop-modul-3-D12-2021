@@ -17,7 +17,6 @@ Untuk mengerjakan Soal 3, saya membuat beberapa fungsi yang dapat memudahkan pen
 
 Fungsi ini digunakan untuk merubah string menjadi lowercase, dikarenakan pada soal, ekstensi / tipe file bersifat case insensitive, dimana .jpg dan .JPG dianggap sama. 
 
-Source Code :
 ```C
 char *ubahlc(char *string){
 	unsigned char *temp;
@@ -144,3 +143,118 @@ if(argc > 2 && strcmp(argv[1], "-f") == 0){
 Jika argumen nya berjumlah lebih dari 2 dan argumen ke dua (indeks 1) adalah ```-f```, maka merupakan soal 3a yang hanya mengkategorikan beberapa file sesuai dengan argumen berupa path dari file. Pertama, inisialisasi thread dengan jumlah sesuai dengan jumlah file (argc - 2 untuk men skip ./soal3 -f) kemudian menggunakan loop untuk membuat thread sesuai dengan jumlah file (1 file 1 thread) yang berfungsi untuk mengkategorikan file, jika file ada maka akan muncul pesan berhasil dan jika file tidak ada maka akan muncul pesan gagal. Setelah selesai, maka dilakukan join thread yang berfungsi sama seperti ```wait()``` pada fork yaitu menunggu thread terminated.
 
 ### Soal 3b
+Program juga dapat menerima opsi -d untuk melakukan pengkategorian pada suatu directory. Namun pada opsi -d ini, user hanya bisa memasukkan input 1 directory saja, tidak seperti file yang bebas menginput file sebanyak mungkin.
+
+Contohnya adalah seperti ini :
+``` 
+$./soal3 -d /path/to/directory/
+```
+Perintah di atas akan mengkategorikan file di /path/to/directory, lalu hasilnya akan disimpan di working directory dimana program C tersebut berjalan (hasil kategori filenya bukan di /path/to/directory). Output yang dikeluarkan adalah seperti ini :
+```
+Jika berhasil, print “Direktori sukses disimpan!”
+Jika gagal, print “Yah, gagal disimpan :(“
+```
+Untuk menjawab soal 3b, saya membuat fungsi kategorifolder yang berfungsi untuk mengkategorikan file dalam suatu folder tertentu. 
+```C
+void kategorifolder(char *pathfolder, int sizethread){ 
+	DIR *fd = opendir(pathfolder);
+	struct dirent *dp;
+	pthread_t tid[sizethread]; 
+	int counter = 0;
+	char namafile[200][200] ={};
+	while((dp = readdir(fd)) != NULL){
+		if(dp->d_type == DT_REG){ 
+			strcat (namafile[counter],pathfolder);
+			strcat(namafile[counter],"/");
+			strcat(namafile[counter],dp->d_name); 
+			pthread_create(&tid[counter], NULL, kategorifile, (void *)namafile[counter]); 
+			counter++;
+		}
+		else if((dp->d_type == DT_DIR) && strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0) { 
+            char pathfolderisi[200] = {};
+            strcat (pathfolderisi,pathfolder);
+            strcat (pathfolderisi,"/");
+            strcat (pathfolderisi,dp->d_name);  
+            DIR *fd2 = opendir(pathfolderisi); 
+            struct dirent *dp2;
+			int sizethreadfold = 0;
+			while((dp2 = readdir(fd2)) != NULL){
+				if(dp2->d_type == DT_REG){
+					sizethreadfold++;
+				}
+			}
+			kategorifolder(pathfolderisi, sizethreadfold);
+			closedir(fd2);
+        	}
+	}
+	for(int i = 0; i < sizethread; i++){ 
+		pthread_join(tid[i], NULL);
+	} 
+    	closedir(fd);
+}
+```
+Pertama, fungsi akan membuka folder yang sesuai dengan path pada argumen, kemudian inisialisasi thread sejumlah variabel sizethread yang merupakan jumlah file (1 thread 1 file), kemudian akan membuka direktori, membaca isi direktori satu persatu, dan jika isi direktori berupa file reguler, maka fungsi akan merangkai path dari file tersebut menggunakan ```strcat()``` dan kemudian akan membuat thread untuk mengkategorikan file tersebut, dan jika isi direktori tersebut adalah suatu direktori,  maka fungsi akan merangkai path dari direktori tersebut dan membuka serta membaca direktori tersebut untuk menghitung jumlah thread yang dibutuhkan. Kemudian melakukan rekursi dengan memanggil fungsi itu sendiri untuk mengkategorikan file didalam direktori yang berada di dalam direktori. Kemudian setelah selesai, dilakukan join thread untuk menunggu semua thread terminated.
+
+Pada main, saya menggunakan percabangan berikut untuk soal 3b :
+```C
+else if(argc == 3 && strcmp(argv[1], "-d") == 0){ 
+	DIR *fd = opendir(argv[2]);
+	if(fd){
+		struct dirent *dp;
+		int sizethread = 0;
+		while((dp = readdir(fd)) != NULL){
+			if(dp->d_type == DT_REG){ 
+				sizethread++;
+			}
+		}
+		kategorifolder(argv[2], sizethread); 
+		closedir(fd);
+		printf("Direktori sukses disimpan!\n");
+	}
+	else if(ENOENT == errno){ 
+		printf("Yah, gagal disimpan :(\n");
+	} 
+}
+```
+Jika argumen yang dimasukkan adalah 3 dan argumen kedua (indeks 1) adalah ```-d```, maka itu merupakan soal 3b yang mengkategorikan isi dari direktori tertentu sesuai dengan path yang ditulis pada argumen. Pertama, pada main akan membaca isi direktori untuk menghitung jumlah thread yang akan dibuat. Setelah itu, memanggil fungsi ```kategorifolder()``` untuk mengkategorikan direktori tersebut dan jika sukses akan mengeluarkan pesan sukses, dan jika direktori yang diinput sebagai argumen tidak ada, maka akan mengeluarkan pesan error.
+
+### Soal 3c
+Selain menerima opsi-opsi di atas, program ini menerima opsi \*, contohnya ada
+di bawah ini:
+```
+$ ./soal3 \*
+```
+Opsi ini akan mengkategorikan seluruh file yang ada di working directory ketika menjalankan program C tersebut.
+
+Untuk mengerjakan soal 3c ini juga menggunakan fungsi ```kategorifolder()```, bedanya dengan soal 3b adalah direktori yang digunakan untuk argumen adalah direktori dimana program ini dijalankan.
+
+Pada main, saya menggunakan berikut untuk soal 3c :
+```C
+else if(argc == 2 && strcmp(argv[1], "*") == 0){ 
+		char *pathprogram;
+		int sizethread = 0;
+		pathprogram = getenv("PWD"); 
+		DIR *dir = opendir(pathprogram);
+		struct dirent *dp;
+		while((dp = readdir(dir)) != NULL){
+			if(dp->d_type == DT_REG){
+				sizethread++;
+			}
+		}
+		kategorifolder(pathprogram, sizethread);
+		closedir(dir);
+	}
+```
+Jika argumen berjumlah 2 dan argumen kedua (indeks 1) adalah ```*``` maka merupakan soal 3c yang mengkategorikan semua file di direktori dimana program dijalankan. Pertama - tama akan mengambil path dimana program itu dijalankan dengan menggunakan ```getenv("PWD")```, kemudian akan membuka direktori dan membaca isi direktori tersebut untuk menghitung jumlah thread yang dibutuhkan, setelah itu akan memanggil fungsi ```kategorifolder()``` untuk mengkategorikan file dalam suatu direktori tertentu.
+
+### Soal 3d 
+Semua file harus berada di dalam folder, jika terdapat file yang tidak memiliki ekstensi, file disimpan dalam folder “Unknown”. Jika file hidden, masuk folder “Hidden”.
+
+Seperti dijelaskan diatas, fungsi ```gettipe()``` juga berlaku untuk file yang berupa Hidden dan tidak memiliki tipe atau ekstensi (Unknown), jadi file - file yang Hidden dan Unknown juga akan dikategorikan.
+
+### Soal 3e
+Setiap 1 file yang dikategorikan dioperasikan oleh 1 thread agar bisa berjalan secara paralel sehingga proses kategori bisa berjalan lebih cepat.
+
+Seperti dijelaskan diatas juga, pada soal 3b dan soal 3c membaca isi direktori untuk menghitung berapa banyak thread yang dibutuhkan untuk melakukan kategori file, maka dari itu satu thread berlaku untuk satu file.
+
+
