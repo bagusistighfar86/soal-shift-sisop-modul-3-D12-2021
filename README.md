@@ -304,6 +304,28 @@ Isi sala satu direktori tipe file adalah sebagai berikut :
 [![3b-6.jpg](https://i.postimg.cc/D0FfvKMp/3b-6.jpg)](https://postimg.cc/jwgYcBKy)
 
 
+__Soal 3c__
+
+Pada awalnya, di direktori no3 dengan path ```/home/rizqi/no3``` adalah sebagai berikut :
+
+[![3c-1.jpg](https://i.postimg.cc/fbtYXxRn/3c-1.jpg)](https://postimg.cc/Z9m9zvNV)
+
+Kemudian saya mencoba perintah soal 3c pada terminal :
+
+[![3c-2.jpg](https://i.postimg.cc/br8nKWHp/3c-2.jpg)](https://postimg.cc/8JKsvy00)
+
+Isi dari direktori no3 (tempat program berjalan) menjadi sebagai berikut:
+
+[![3c-3.jpg](https://i.postimg.cc/mkw9Rj8M/3c-3.jpg)](https://postimg.cc/YLv0z6cq)
+
+Isi dari salah satu direktori tipe file adalah sebagai berikut :
+
+[![3c-4.jpg](https://i.postimg.cc/h4bT94cj/3c-4.jpg)](https://postimg.cc/PNJCHjLs)
+
+
+### Kendala
+
+Tidak ada kendala dalam pengerjaan revisi modul 3 soal 3.
 
 
 
