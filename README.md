@@ -257,4 +257,54 @@ Setiap 1 file yang dikategorikan dioperasikan oleh 1 thread agar bisa berjalan s
 
 Seperti dijelaskan diatas juga, pada soal 3b dan soal 3c membaca isi direktori untuk menghitung berapa banyak thread yang dibutuhkan untuk melakukan kategori file, maka dari itu satu thread berlaku untuk satu file.
 
+### Output Program
+__Soal 3a__
+
+Pada awalnya, di direktori no3 dengan path ```/home/rizqi/no3``` adalah sebagai berikut :
+
+[![3a-1.jpg](https://i.postimg.cc/wM52SDCR/3a-1.jpg)](https://postimg.cc/n9zqm9cn)
+
+Kemudian saya coba menggunakan perintah pada soal 3a di terminal :
+
+[![3a-2.jpg](https://i.postimg.cc/wjj2Gy03/3a-2.jpg)](https://postimg.cc/N5ZRyMhw)
+
+Isi dari direktori no3 menjadi sebagai berikut :
+
+[![3a-3.jpg](https://i.postimg.cc/HLftnSH7/3a-3.jpg)](https://postimg.cc/jW4fk4Ds)
+
+Salah satu isi direktori tipe :
+
+[![3a-4.jpg](https://i.postimg.cc/dQR9QmfL/3a-4.jpg)](https://postimg.cc/z3Bh0W8r)
+
+
+__Soal 3b__
+
+Pada awalnya, di direktori no3 dengan path ```/home/rizqi/no3``` adalah sebagai berikut :
+
+[![3b-1.jpg](https://i.postimg.cc/YC70rYJq/3b-1.jpg)](https://postimg.cc/BXh4NLSd)
+
+Kemudian isi direktori soal3 yang akan dikategorikan adalah sebagai berikut :
+
+[![3b-2.jpg](https://i.postimg.cc/VNGkWT5d/3b-2.jpg)](https://postimg.cc/67ZK9MrX)
+
+Kemudian saya coba menggunakan perintah pada soal 3b :
+
+[![3b-3.jpg](https://i.postimg.cc/8cVQRBd7/3b-3.jpg)](https://postimg.cc/tZDMy6Mb)
+
+Isi dari direktori soal3 menjadi sebagai berikut :
+
+[![3b-4.jpg](https://i.postimg.cc/m2BWhj2q/3b-4.jpg)](https://postimg.cc/4nLSSzcb)
+
+Isi dari direktori no3 menjadi sebagai berikut :
+
+[![3b-5.jpg](https://i.postimg.cc/1X6FTPNW/3b-5.jpg)](https://postimg.cc/vxYDgJh9)
+
+Isi sala satu direktori tipe file adalah sebagai berikut :
+
+[![3b-6.jpg](https://i.postimg.cc/D0FfvKMp/3b-6.jpg)](https://postimg.cc/jwgYcBKy)
+
+
+
+
+
 
