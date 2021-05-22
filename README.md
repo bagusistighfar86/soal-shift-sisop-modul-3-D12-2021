@@ -46,9 +46,13 @@ int main() {
     }
 ```
 `key` digunakan sebagai index dalam share memory yang akan digunakan untuk soal 2b.
+
 `int m1[baris][bk], m2[bk][kolom], matriks_hasil[baris * kolom];` merupakan deklarasi matriks 1, matriks 2, dan matriks hasil yang digunakan untuk menyimpan jawaban dari soal2a ini.
+
 `int shmid = shmget(key, sizeof(int) * baris * kolom, IPC_CREAT | 0666);` digunakan untuk id yang akan digunakan pada shared memory
+
 `int* matriks_share = (int*)shmat(shmid, NULL, 0);` pointer matriks_share digunakan untuk mempassing hasil dari matriks soal 2a ini ke soal 2b.
+
 Kemudian, 2 for diatas untuk input data ke dalam matriks 1 dan matriks 2 seperti biasa.
 
 ```c
@@ -78,8 +82,11 @@ int err, k;
     }
 ```
 `pthread_t* tid = (pthread_t*)malloc((24) * sizeof(pthread_t));` digunakan untuk mengaolakasikan 24 memori untuk mendapatkan 24 id sebagai thread yang akan digunakan untuk melakukan perhitungan perkalian sebanyak 24.
+
 `int count = 0;` digunakan untuk menghitung id dari 0 - 23.
+
 `int* arg = NULL;`digunakan sebagai pointer untuk menyimpan data matriks 1 dan 2 secara linear. Dibawah ini adalah contoh ilustrasi perhitungan :
+
 
 [![1621698221145.jpg](https://i.postimg.cc/zBg4LpbJ/1621698221145.jpg)](https://postimg.cc/wy9wZXQP)
 
@@ -186,6 +193,7 @@ int main(int argc, char const *argv[]) {
 ```
 `key` yang digunakan sama pada soal 2a yakni 1234. 2 for di atas untuk menginput data dari matriks_shared dan matriks_baru.
 
+
 ```c
     for (i = 0; i < baris; i++) {
         for (j = 0; j < kolom; j++) {
@@ -284,11 +292,15 @@ char *sort_arg[] = {"sort", "-nrk", "3,3", NULL};
 char *head_arg[] = {"head", "-5", NULL};
 ```
 `fd1[],fd2[]`digunakan untuk meyimpan file descriptor 1 untuk pipe 1 dan file descriptor 2 untuk pipe 2.
+
 Kemudian ada 4 fungsi yakni ps_comm() untuk melakukan comman ps, sort_comm() untuk melakukan command sort, head_comm() untuk melakukan command head, dan fungsi closeAll() untuk menutup semua file descriptor.
 
 `char *ps_arg[] = {"ps", "aux", NULL};` digunakan untuk menyimpan argumen dari command ps aux.
+
 `char *sort_arg[] = {"sort", "-nrk", "3,3", NULL};` digunakan untuk menyimpan argumen dari command sort -nrk 3,3.
+
 `char *head_arg[] = {"head", "-5", NULL};` digunakan untuk menyimpan argumen dari command head -5.
+
 
 Berikut adalah main dari soal 2c :
 ```c
