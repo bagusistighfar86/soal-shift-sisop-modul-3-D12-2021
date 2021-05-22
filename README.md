@@ -80,7 +80,8 @@ int err, k;
 `pthread_t* tid = (pthread_t*)malloc((24) * sizeof(pthread_t));` digunakan untuk mengaolakasikan 24 memori untuk mendapatkan 24 id sebagai thread yang akan digunakan untuk melakukan perhitungan perkalian sebanyak 24.
 `int count = 0;` digunakan untuk menghitung id dari 0 - 23.
 `int* arg = NULL;`digunakan sebagai pointer untuk menyimpan data matriks 1 dan 2 secara linear. Dibawah ini adalah contoh ilustrasi perhitungan :
-GAMBAR
+
+[![1621698221145.jpg](https://i.postimg.cc/zBg4LpbJ/1621698221145.jpg)](https://postimg.cc/wy9wZXQP)
 
 Kemudian di dalam kedua for diatas dilakukan perhitungan sebanyak 24 kali sesuai aturan perkalian matriks seperti biasa. Perhitungan dilakukan pada thread yang dibuat untuk menjalankan fungsi void* kali(). Berikut adalah fungsi void* kali : 
 ```c
@@ -436,7 +437,8 @@ void closeAll(){
 Pada fungsi ps_comm(), sort_comm(), dan head_comm() terdapat dup2(int old_fd, int new_fd) yang digunakan untuk menduplikasikan file descriptor pipe tersebut (old_fd) ke dalam file descriptor dari stdout atau stdin(new_fd). stdout bernilai 1 dan stdin bernilai 0. 
 
 Berikut adalah ilustrasi untuk file descriptor pada pipe :
-GAMBAR
+
+[![pipe-fork.png](https://i.postimg.cc/TYmxpV52/pipe-fork.png)](https://postimg.cc/CzFX2f49)
  
 
 ## Soal 3
