@@ -8,8 +8,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define baris 4
-#define kolom 6
+int baris=4, kolom 6;
 
 long long matriks[baris][kolom];
 int matriks_shared[baris][kolom], matriks_baru[baris][kolom];
