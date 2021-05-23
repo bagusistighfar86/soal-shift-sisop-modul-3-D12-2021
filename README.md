@@ -6,6 +6,10 @@
 |Rizqi Rifaldi|05111940000068|
 
 ## Soal 1
+
+Soal 1 dari modul 3 tidak dapat kami selesaikan dikarenakan beberapa hal :
+1. Salah satu anggota kelompok kami tidak ada kabar jadi hanya 2 orang yanh mengerjakan soal modul 3
+2. Kesulitan dari soal 1 yang menurut kami tinggi dan cukup kompleks sehingga kami tidak bisa mengerjakan soal 1
 ## Soal 2
 
 ### Soal 2a
