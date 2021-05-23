@@ -70,11 +70,11 @@ int err, k;
 
             for (k = 0; k < bk; k++) {
                 arg[k] = m1[i][k];
-                printf("1.arg[%d] = m1[%d][%d] = %d\n",k+1,i,k,m1[i][k]);
+                //printf("1.arg[%d] = m1[%d][%d] = %d\n",k+1,i,k,m1[i][k]);
             }
             for (k = 0; k < bk; k++) {
                 arg[k + bk] = m2[k][j];
-                printf("2.arg[%d] = m1[%d][%d] = %d\n",k+1+bk,k,j,m2[k][j]);
+                //printf("2.arg[%d] = m1[%d][%d] = %d\n",k+1+bk,k,j,m2[k][j]);
             }
 
             err = pthread_create(&(tid[count++]), NULL, &kali, (void*)arg);
