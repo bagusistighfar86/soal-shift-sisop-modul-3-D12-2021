@@ -22,7 +22,9 @@ Berikut adalah library yang di gunakan beserta global variable untuk ukuran matr
 #include <sys/wait.h>
 #include <unistd.h>
 
-int baris=4, bk=3, kolom=6
+#define baris 4 
+#define bk 3
+#define kolom 6
 ```
 Berikut adalah fungsi main :
 
