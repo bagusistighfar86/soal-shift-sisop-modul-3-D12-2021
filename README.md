@@ -152,7 +152,9 @@ a adalah matriks lama dan b adalah matriks baru. Kemudian hasil dari faktorial t
 #include <sys/wait.h>
 #include <unistd.h>
 
-int baris=4, kolom=6;
+
+#define baris 4 
+#define kolom 6
 
 long long matriks[baris][kolom];
 int matriks_shared[baris][kolom], matriks_baru[baris][kolom];
