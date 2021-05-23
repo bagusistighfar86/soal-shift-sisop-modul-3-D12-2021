@@ -134,6 +134,10 @@ Setelah itu akan dijalankan thread pada for dibawah ini sesuai id yang disimpan 
 ```
 Kemudian setiap hasil yang disimpan dalam matriks_hasil disimpan dalam matriks_share yang akan dipassing dan digunakan pada soal 2b.
 
+**OUTPUT**
+
+[![1621749612684.jpg](https://i.postimg.cc/0y85Qkmt/1621749612684.jpg)](https://postimg.cc/9rnHgjLT)
+
 ### Soal 2b
 Soal ini memerintahkan kita untuk input matriks baru dengan ukuran 4x6. Matriks baru ini memiliki hubungan dengan matriks hasil dari soal 2a untuk dilakukan perhitungan dengan memerhatikan 3 kondisi sebagai berikut :
 If a >= b  -> a!/(a-b)!
@@ -271,6 +275,10 @@ long long factorial(int a, int b) {
 ```
 
 **Catatan** : hasil disimpan pada tipe data long long!
+
+**OUTPUT**
+
+[![1621749667599.jpg](https://i.postimg.cc/PrHT3X6t/1621749667599.jpg)](https://postimg.cc/LhxchpK7)
 
 ### Soal 2c
 Pada soal ini diperintahkan untuk mengecek 5 proses teratas yang memakan pada resource kompputer kita dengan memanfaatkan command `“ps aux | sort -nrk 3,3 | head -5”` **(Catatan!: Harus menggunakan IPC Pipes)**
@@ -455,6 +463,10 @@ Pada fungsi ps_comm(), sort_comm(), dan head_comm() terdapat dup2(int old_fd, in
 Berikut adalah ilustrasi untuk file descriptor pada pipe :
 
 [![pipe-fork.png](https://i.postimg.cc/TYmxpV52/pipe-fork.png)](https://postimg.cc/CzFX2f49)
+
+**OUTPUT**
+
+[![1621749704668.jpg](https://i.postimg.cc/DZbnD8kz/1621749704668.jpg)](https://postimg.cc/JDmfH7hw)
  
 
 ## Soal 3
